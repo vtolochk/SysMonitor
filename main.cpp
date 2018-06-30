@@ -3,6 +3,7 @@
 #include "OSInfo.class.hpp"
 #include "CPU.class.hpp"
 
+
 int main(void)
 {
 	DateTime testDateTime;
