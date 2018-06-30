@@ -2,6 +2,7 @@
 #define CPU_H
 #include "IMonitorModule.hpp"
 
+#include <vector>
 class CPU: public IMonitorModule {
 	public:
 		CPU(void);
@@ -13,10 +14,12 @@ class CPU: public IMonitorModule {
 
 		std::string getBrand(void) const;
 		std::string getCores(void) const;
+		std::string getLoadAVG(void) const;
 
 	private:
 		std::string _brand;
 		std::string _cores;
+		std::string _loadAVG;
 };
 
 #endif
