@@ -43,10 +43,10 @@ const std::string DateTime::_getCurrentTime() {
 
 /* Getters */
 
-std::string DateTime::getCurrentDate(void) const {
-	return this->_currentDate;
+std::string DateTime::getDate(void) const {
+	return this->_date;
 }
 
-std::string DateTime::getCurrentTime(void) const {
-	return this->_currentTime;
+std::string DateTime::getTime(void) const {
+	return this->_time;
 }

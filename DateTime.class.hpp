@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <time.h>
 
-class DateTime {
+class DateTime: public IMonitorModule {
 	public:
 		DateTime(void);
 		DateTime(const DateTime& copy);

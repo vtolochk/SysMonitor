@@ -3,7 +3,6 @@
 #include "IMonitorModule.hpp"
 #include "IMonitorDisplay.hpp"
 
-
 class UserHost : public IMonitorModule
 {
     public:
@@ -15,8 +14,8 @@ class UserHost : public IMonitorModule
         std::string getHostName();
 		void update();
     private:
-        std::string UserName;
-        std::string HostName;
+		std::string _UserName;
+		std::string _HostName;
 };
 
 #endif
