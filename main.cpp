@@ -3,6 +3,9 @@
 int main(void)
 {
     UserHost lala;
-    lala.getUserName();
+    std::string userName = lala.getUserName();
+    std::string hostName = lala.getHostName();
+    std::cout << userName << std::endl;
+    std::cout << hostName << std::endl;
     return 0;
 }
