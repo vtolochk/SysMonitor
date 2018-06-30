@@ -28,5 +28,6 @@ int main(void)
 
 	std::cout << testCPU.getBrand() << std::endl;
 	std::cout << testCPU.getCores() << std::endl;
+	std::cout << testCPU.getLoadAVG() << std::endl;
 	return 0;
 }

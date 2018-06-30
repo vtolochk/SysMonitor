@@ -28,6 +28,12 @@ void CPU::update(void) {
 	std::stringstream ss;
 	ss << coreNum;
 	this->_cores = "Number of cores: " + ss.str();
+
+	double avg[3];
+    getloadavg(avg, 3);
+	std::stringstream ss1;
+	ss1 << avg[0] << ", " << avg[1] << ", " << avg[2];
+	this->_loadAVG = "Load Avg: " + ss1.str();
 }
 
 /* Getters */
@@ -38,4 +44,8 @@ std::string CPU::getBrand(void) const {
 
 std::string CPU::getCores(void) const {
 	return this->_cores;
+}
+
+std::string CPU::getLoadAVG(void) const {
+	return this->_loadAVG;
 }
