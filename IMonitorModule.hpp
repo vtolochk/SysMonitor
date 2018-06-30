@@ -10,6 +10,7 @@
 #include <vector>
 #include <numeric>
 #include <iomanip>
+#include <ncurses.h>
 
 
 class IMonitorModule

@@ -22,26 +22,26 @@ void CPU::update(void) {
 	size_t size = sizeof(brand);
 
 	sysctlbyname("machdep.cpu.brand_string", &brand, &size, NULL, 0);
-	this->_brand = "Processor: " + std::string(brand);
+	this->_brand = std::string(brand);
 
+	this->_cores.clear();
 	int coreNum;
 	sysctlbyname("hw.ncpu", &coreNum, &size, NULL, 0);
-	std::stringstream ss;
-	ss << coreNum;
-	this->_cores = "Number of cores: " + ss.str();
+	this->_cores.push_back(coreNum);
 
+	this->_loadAVG.clear();
 	double avg[3];
     getloadavg(avg, 3);
-	std::stringstream ss1;
-	ss1 << avg[0] << ", " << avg[1] << ", " << avg[2];
-	this->_loadAVG = "Load Avg: " + ss1.str();
+	this->_loadAVG.push_back(avg[0]);
+	this->_loadAVG.push_back(avg[1]);
+	this->_loadAVG.push_back(avg[2]);
 
 	for (int i = 0; i < 4; i++) {
 		this->_oldUsageOfCore[i] = this->_calcUsage(i);
 	}
-	sleep(1);
+	usleep(500000);
 	for (int i = 0; i < 4; i++) {
-		this->_usage[i] = this->_calcUsage(i);
+		this->_currenUsageOfCore[i] = this->_calcUsage(i);
 	}
 }
 
@@ -72,29 +72,27 @@ std::string CPU::getBrand(void) const {
 	return this->_brand;
 }
 
-std::string CPU::getCores(void) const {
+std::vector<int> CPU::getCores(void) const {
 	return this->_cores;
 }
 
-std::string CPU::getLoadAVG(void) const {
+std::vector<double> CPU::getLoadAVG(void) const {
 	return this->_loadAVG;
 }
 
-std::string CPU::getUsage(void) const {
-	std::stringstream ss;
-
+std::vector<float> CPU::getUsage(void) {
+	this->_usage.clear();
 	for (int i = 0; i < 4; i++) {
 		unsigned long long int used =
-			std::accumulate(this->_usage[i].begin(), this->_usage[i].end() - 1, 0)
+			std::accumulate(this->_currenUsageOfCore[i].begin(), this->_currenUsageOfCore[i].end() - 1, 0)
 			- std::accumulate(this->_oldUsageOfCore[i].begin(), this->_oldUsageOfCore[i].end() - 1, 0);
 		unsigned long long int total =
-			std::accumulate(this->_usage[i].begin(), this->_usage[i].end(), 0)
+			std::accumulate(this->_currenUsageOfCore[i].begin(), this->_currenUsageOfCore[i].end(), 0)
 			- std::accumulate(this->_oldUsageOfCore[i].begin(), this->_oldUsageOfCore[i].end(), 0);
 
 		float result = static_cast<float>(used) / static_cast<float>(total) * 100.0f;
-		ss << std::fixed << std::setprecision(1) << result << "% ";
+		this->_usage.push_back(result);
 	}
 
-
-	return ss.str();
+	return this->_usage;
 }
