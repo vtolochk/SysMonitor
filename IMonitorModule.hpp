@@ -4,7 +4,9 @@
 class IMonitorModule
 {
     public:
-        
+        virtual std::string getCurrentTime() = 0;
+        virtual std::string getUserName() = 0;
+        virtual std::string getHostName() = 0; 
 };
 
 #endif
