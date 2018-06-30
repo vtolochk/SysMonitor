@@ -1,5 +1,5 @@
-#ifndef IMONITOR_DISPLAY_H
-#define IMONITOR_DISPLAY_H
+#ifndef I_MONITOR_DISPLAY_H
+#define I_MONITOR_DISPLAY_H
 
 class IMonitorDisplay
 {
