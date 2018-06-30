@@ -2,9 +2,18 @@
 
 NAME = ft_gkrellm
 
-SRCS = main.cpp UserHost.class.cpp DateTime.class.cpp OSInfo.class.cpp
+SRCS = main.cpp \
+	   UserHost.class.cpp \
+	   DateTime.class.cpp \
+	   OSInfo.class.cpp \
+	   CPU.class.cpp \
 
-HEADERS = IMonitorDisplay.hpp IMonitorModule.hpp UserHost.class.hpp DateTime.class.hpp OSInfo.class.hpp
+HEADERS = IMonitorDisplay.hpp \
+		  IMonitorModule.hpp \
+		  UserHost.class.hpp \
+		  DateTime.class.hpp \
+		  OSInfo.class.hpp \
+		  CPU.class.hpp \
 
 OBJ = $(SRCS:.cpp=.o)
 

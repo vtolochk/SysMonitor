@@ -1,12 +1,7 @@
 #include "UserHost.class.hpp"
-#include <sys/utsname.h>
 #include "DateTime.class.hpp"
 #include "OSInfo.class.hpp"
-
-
-#include <string.h>
-#include <stdio.h>
-#include <sys/sysctl.h>
+#include "CPU.class.hpp"
 
 int main(void)
 {
@@ -26,5 +21,12 @@ int main(void)
 
 	std::cout << testOSInfo.getOSName() << std::endl;
 	std::cout << testOSInfo.getKernelVersion() << std::endl;
+
+
+	CPU testCPU;
+
+
+	std::cout << testCPU.getBrand() << std::endl;
+	std::cout << testCPU.getCores() << std::endl;
 	return 0;
 }
