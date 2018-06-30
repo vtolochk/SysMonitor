@@ -2,7 +2,9 @@
 
 NAME = ft_gkrellm
 
-SRCS = main.cpp
+SRCS = main.cpp IMonitorModule.cpp IMonitorDisplay.cpp
+
+HEADERS = IMonitorDisplay.hpp IMonitorModule.hpp
 
 OBJ = $(SRCS:.cpp=.o)
 
@@ -12,10 +14,10 @@ CC = clang++
 
 all: $(NAME) $(OBJ)
 
-$(NAME): $(OBJ) 
+$(NAME): $(OBJ) $(HEADERS)
 	$(CC) $(CFLAGS) -lncurses $(OBJ) -o $(NAME)
 
-%.o: %.cpp
+%.o: %.cpp $(HEADERS)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
