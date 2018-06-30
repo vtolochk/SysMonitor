@@ -18,21 +18,21 @@ OSInfo& OSInfo::operator=(const OSInfo&) {
 
 void OSInfo::update(void) {
 #ifdef __unix
-	this->_osName = "OS Name: Unix";
+	this->_osName = "Unix";
 #elif __unix__
-	this->_osName = "OS Name: Unix";
+	this->_osName = "Unix";
 #elif __APPLE__ || __MACH__
-	this->_osName = "OS Name: Mac OSX";
+	this->_osName = "Mac OSX";
 #elif __linux__
-	this->_osName = "OS Name: Linux";
+	this->_osName = "Linux";
 #else
-	this->_osName = "OS Name: Other";
+	this->_osName = "Other";
 #endif
 
 	char str[256];
 	size_t size = sizeof(str);
 	sysctlbyname("kern.osrelease", str, &size, NULL, 0);
-	this->_kernelVersion = "Kernel Version: " + std::string(str);
+	this->_kernelVersion = std::string(str);
 }
 
 std::string OSInfo::getOSName(void) const {

@@ -24,30 +24,103 @@ TerminalMonitor &TerminalMonitor::operator = (const TerminalMonitor &other)
 	return *this;
 }
 
+void TerminalMonitor::_allUpdate()
+{
+	this->_cpu.update();
+	this->_dateTime.update();
+	this->_userHost.update();
+	this->_OSinfo.update();
+}
+
+void TerminalMonitor::_timeModule()
+{
+	std::string temp;
+	WINDOW *win = newwin(8, 20, 0, 0);
+	box(win, 0, 0);
+	mvwprintw(win, 1, 8, "Date");
+	temp = this->_dateTime.getDate();
+	mvwprintw(win, 2, 5, temp.c_str());
+	mvwprintw(win, 4, 8, "Time");
+	temp = this->_dateTime.getTime();
+	mvwprintw(win, 5, 6, temp.c_str());
+	wrefresh(win);
+}
+
+void TerminalMonitor::_userModule()
+{
+	std::string temp;
+	WINDOW *win = newwin(8, 20, 8, 0);
+	box(win, 0, 0);
+	mvwprintw(win, 1, 6, "Username");
+	temp = this->_userHost.getUserName();
+	mvwprintw(win, 2, 6, temp.c_str());
+	mvwprintw(win, 4, 6, "Hostname");
+	temp = this->_userHost.getHostName();
+	mvwprintw(win, 5, 3, temp.c_str());
+	wrefresh(win);
+}
+
+void TerminalMonitor::_OSModule()
+{
+	std::string temp;
+	WINDOW *win = newwin(8, 20, 16, 0);
+	box(win, 0, 0);
+	mvwprintw(win, 1, 6, "OS Name");
+	temp = this->_OSinfo.getOSName();
+	mvwprintw(win, 2, 6, temp.c_str());
+	mvwprintw(win, 4, 3, "Kernel version");
+	temp = this->_OSinfo.getKernelVersion();
+	mvwprintw(win, 5, 6, temp.c_str());
+	wrefresh(win);
+}
+
+void TerminalMonitor::_CPUModule()
+{
+	std::string temp;
+	WINDOW *win = newwin(24, 60, 0, 20);
+	box(win, 0, 0);
+	mvwprintw(win, 1, 25, "Processor");
+	temp = this->_cpu.getBrand();
+	mvwprintw(win, 2, 11, temp.c_str());
+
+	mvwprintw(win, 4, 24, "Average load");
+	std::vector<double> avg = this->_cpu.getLoadAVG();
+	std::stringstream output;
+	std::copy(avg.begin(), avg.end(), std::ostream_iterator<double>(output, " "));
+	mvwprintw(win, 5, 18, output.str().c_str());
+	
+	int j = 7;
+	for (size_t i = 0; i < 4; i++)
+	{
+		mvwprintw(win, j, 4, "core %i:", i);
+		j += 2;
+	}
+
+
+	wrefresh(win);
+}
+
+
+void TerminalMonitor::_allAppear()
+{
+	this->_timeModule();
+	this->_userModule();
+	this->_OSModule();
+	this->_CPUModule();
+}
+
 void TerminalMonitor::displayInfo()
 {
 	initscr();
 	noecho();
 	curs_set(0);
-	this->_userHost.update();
-	this->_OSinfo.update();
 	for(;;)
 	{
 		nodelay(stdscr, true);
-		erase();
-		this->_cpu.update();
-		this->_dateTime.update();
 		keypad(stdscr, true);
-
-		std::string str = this->_dateTime.getTime();
-		std::string str2 = this->_userHost.getUserName();
-		std::vector<double> str4 = this->_cpu.getLoadAVG();
-		mvprintw(10, 50, str2.c_str());
-		mvprintw(0, 50, str.c_str());
-
-		std::vector<float> str3 = this->_cpu.getUsage();
-		int res = getch();
-		if (res == 'q')
+		this->_allUpdate();
+		this->_allAppear();
+		if (getch() == 'q')
 		{	
 			nodelay(stdscr, false);
 			endwin();

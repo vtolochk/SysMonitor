@@ -35,6 +35,6 @@ void UserHost::update(void)
 {
 	char hostname[_POSIX_HOST_NAME_MAX];
 	gethostname(hostname, _POSIX_HOST_NAME_MAX );
-	this->_UserName = "Username: " + std::string(getlogin());
-	this->_HostName = "Hostname: " + std::string(hostname);
+	this->_UserName = std::string(getlogin());
+	this->_HostName = std::string(hostname);
 }

@@ -21,6 +21,12 @@ class TerminalMonitor : public IMonitorDisplay
 		UserHost _userHost;
 		OSInfo	_OSinfo;
 		CPU		_cpu;
+		void _allUpdate();
+		void _allAppear();
+		void _timeModule();
+		void _userModule();
+		void _OSModule();
+		void _CPUModule();
 };
 
 #endif
