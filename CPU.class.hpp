@@ -2,7 +2,7 @@
 #define CPU_H
 #include "IMonitorModule.hpp"
 
-#include <vector>
+
 class CPU: public IMonitorModule {
 	public:
 		CPU(void);
