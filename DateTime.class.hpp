@@ -1,9 +1,6 @@
 #ifndef DATE_TIME_H
 #define DATE_TIME_H
 #include "IMonitorModule.hpp"
-#include <iostream>
-#include <stdio.h>
-#include <time.h>
 
 class DateTime: public IMonitorModule {
 	public:
