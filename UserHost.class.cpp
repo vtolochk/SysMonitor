@@ -2,7 +2,7 @@
 
 UserHost::UserHost()
 {
-
+	this->update();
 }
 
 UserHost::~UserHost()
@@ -23,18 +23,18 @@ UserHost &UserHost::operator = (const UserHost &other)
 
 std::string UserHost::getUserName()
 {
-	std::string username = "Username: " + std::string(getlogin());
-	return username;
+	return this->_UserName;
 }
 
 std::string UserHost::getHostName()
 {
-	char HostName[_POSIX_HOST_NAME_MAX];
-	gethostname(HostName, _POSIX_HOST_NAME_MAX );
-	this->_HostName.assign(HostName, _POSIX_HOST_NAME_MAX);
-	return "Hostname: " + this->_HostName;
+	return this->_HostName;
 }
 
-void UserHost::update(void) {
-	std::cout << "hello" << std::endl;
+void UserHost::update(void) 
+{
+	char hostname[_POSIX_HOST_NAME_MAX];
+	gethostname(hostname, _POSIX_HOST_NAME_MAX );
+	this->_UserName = "Username: " + std::string(getlogin());
+	this->_HostName = "Hostname: " + std::string(hostname);
 }
