@@ -3,7 +3,8 @@
 
 class IMonitorModule
 {
-
+    public:
+        
 };
 
 #endif

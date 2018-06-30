@@ -3,7 +3,8 @@
 
 class IMonitorDisplay
 {
-
+    public:
+        
 };
 
 #endif
