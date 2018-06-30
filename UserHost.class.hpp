@@ -13,6 +13,7 @@ class UserHost : public IMonitorModule
         UserHost &operator = (const UserHost &other);
         std::string getUserName();
         std::string getHostName();
+		void update();
     private:
         std::string UserName;
         std::string HostName;
