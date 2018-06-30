@@ -39,7 +39,8 @@ void CPU::update(void) {
 	for (int i = 0; i < 4; i++) {
 		this->_oldUsageOfCore[i] = this->_calcUsage(i);
 	}
-	usleep(200000);
+	/* usleep(900000); */
+	sleep(1);
 	for (int i = 0; i < 4; i++) {
 		this->_currenUsageOfCore[i] = this->_calcUsage(i);
 	}
