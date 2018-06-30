@@ -1,5 +1,12 @@
 #include "UserHost.class.hpp"
+#include <sys/utsname.h>
 #include "DateTime.class.hpp"
+#include "OSInfo.class.hpp"
+
+
+#include <string.h>
+#include <stdio.h>
+#include <sys/sysctl.h>
 
 int main(void)
 {
@@ -13,5 +20,11 @@ int main(void)
 	std::string hostName = lala.getHostName();
 	std::cout << userName << std::endl;
 	std::cout << hostName << std::endl;
+
+
+	OSInfo testOSInfo;
+
+	std::cout << testOSInfo.getOSName() << std::endl;
+	std::cout << testOSInfo.getKernelVersion() << std::endl;
 	return 0;
 }
