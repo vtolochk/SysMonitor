@@ -2,34 +2,16 @@
 #include "DateTime.class.hpp"
 #include "OSInfo.class.hpp"
 #include "CPU.class.hpp"
-
+#include "TerminalMonitor.class.hpp"
 
 int main(void)
 {
-	DateTime testDateTime;
-
-	testDateTime.update();
-	std::cout << testDateTime.getDate() << std::endl;
-	std::cout << testDateTime.getTime() << std::endl;
-	UserHost lala;
-	std::string userName = lala.getUserName();
-	std::string hostName = lala.getHostName();
-	std::cout << userName << std::endl;
-	std::cout << hostName << std::endl;
-
-
-	OSInfo testOSInfo;
-
-	std::cout << testOSInfo.getOSName() << std::endl;
-	std::cout << testOSInfo.getKernelVersion() << std::endl;
-
-
-	CPU testCPU;
-
-	std::cout << testCPU.getBrand() << std::endl;
-	std::cout << testCPU.getCores() << std::endl;
-	std::cout << testCPU.getLoadAVG() << std::endl;
-	testCPU.update();
-	std::cout << testCPU.getUsage() << std::endl;
+	DateTime dateTime;
+	UserHost userHost;
+	OSInfo OSinfo;
+	CPU cpu;
+	
+	TerminalMonitor terminal(dateTime, userHost, OSinfo, cpu);
+	terminal.displayInfo();
 	return 0;
 }

@@ -7,6 +7,7 @@ SRCS = main.cpp \
 	   DateTime.class.cpp \
 	   OSInfo.class.cpp \
 	   CPU.class.cpp \
+	   TerminalMonitor.class.cpp \
 
 HEADERS = IMonitorDisplay.hpp \
 		  IMonitorModule.hpp \
@@ -14,6 +15,8 @@ HEADERS = IMonitorDisplay.hpp \
 		  DateTime.class.hpp \
 		  OSInfo.class.hpp \
 		  CPU.class.hpp \
+		  TerminalMonitor.class.hpp \
+
 
 OBJ = $(SRCS:.cpp=.o)
 
