@@ -2,7 +2,7 @@
 
 NAME = ft_gkrellm
 
-SRCS = main.cpp UserHost.class.cpp
+SRCS = main.cpp UserHost.class.cpp DateTime.class.cpp
 
 HEADERS = IMonitorDisplay.hpp IMonitorModule.hpp UserHost.class.hpp
 
