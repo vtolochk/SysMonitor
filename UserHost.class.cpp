@@ -23,15 +23,16 @@ UserHost &UserHost::operator = (const UserHost &other)
 
 std::string UserHost::getUserName()
 {
-	return getlogin();
+	std::string username = "Username: " + std::string(getlogin());
+	return username;
 }
 
 std::string UserHost::getHostName()
 {
 	char HostName[_POSIX_HOST_NAME_MAX];
 	gethostname(HostName, _POSIX_HOST_NAME_MAX );
-	this->_HostName.assign(HostName, _POSIX_HOST_NAME_MAX );
-	return this->_HostName;
+	this->_HostName.assign(HostName, _POSIX_HOST_NAME_MAX);
+	return "Hostname: " + this->_HostName;
 }
 
 void UserHost::update(void) {
