@@ -41,14 +41,13 @@ void TerminalMonitor::displayInfo()
 
 		std::string str = this->_dateTime.getTime();
 		std::string str2 = this->_userHost.getUserName();
+		std::vector<double> str4 = this->_cpu.getLoadAVG();
 		mvprintw(10, 50, str2.c_str());
 		mvprintw(0, 50, str.c_str());
 
-		std::string str3 = this->_cpu.getUsage();
-		//mvprintw(0, 10, str3.c_str());
-		addstr(str3.c_str());
+		std::vector<float> str3 = this->_cpu.getUsage();
 		int res = getch();
-		if (res == 27)
+		if (res == 'q')
 		{	
 			nodelay(stdscr, false);
 			endwin();

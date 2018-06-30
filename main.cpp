@@ -2,6 +2,7 @@
 #include "DateTime.class.hpp"
 #include "OSInfo.class.hpp"
 #include "CPU.class.hpp"
+#include "RAM.class.hpp"
 #include "TerminalMonitor.class.hpp"
 
 int main(void)

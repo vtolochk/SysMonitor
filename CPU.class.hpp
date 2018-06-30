@@ -12,16 +12,18 @@ class CPU: public IMonitorModule {
 		void update(void);
 
 		std::string getBrand(void) const;
-		std::string getCores(void) const;
-		std::string getLoadAVG(void) const;
-		std::string getUsage(void) const;
+		std::vector<int> getCores(void) const;
+		std::vector<double> getLoadAVG(void) const;
+		std::vector<float> getUsage(void);
 
 	private:
 		std::string _brand;
-		std::string _cores;
-		std::string _loadAVG;
-		std::vector<unsigned long long int> _usage[4];
+		std::vector<int> _cores;
+		std::vector<double> _loadAVG;
+		std::vector<unsigned long long int> _currenUsageOfCore[4];
 		std::vector<unsigned long long int> _oldUsageOfCore[4];
+		std::vector<float> _usage;
+
 		std::vector<unsigned long long int> _calcUsage(int core);
 };
 
