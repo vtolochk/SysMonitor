@@ -3,6 +3,7 @@
 #include "IMonitorModule.hpp"
 #include "IMonitorDisplay.hpp"
 
+
 class UserHost : public IMonitorModule
 {
     public:
@@ -10,14 +11,8 @@ class UserHost : public IMonitorModule
         ~UserHost();
         UserHost(const UserHost &other);
         UserHost &operator = (const UserHost &other);
-          std::string getTime();
-         std::string getDate();
         std::string getUserName();
-         std::string getHostName();
-        std::string getOSname();
-         std::string getProcessorName();
-         std::string getMemoryDescription();
-         std::string getGraphics();
+        std::string getHostName();
     private:
         std::string UserName;
         std::string HostName;

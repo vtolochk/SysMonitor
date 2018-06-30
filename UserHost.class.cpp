@@ -32,39 +32,3 @@ std::string UserHost::getHostName()
     std::cout << "la" << std::endl;
     return NULL;
 }
-
-std::string UserHost::getTime()
-{
-    std::cout << "la" << std::endl;
-    return NULL;
-}
-
-std::string UserHost::getDate()
-{
-    std::cout << "la" << std::endl;
-    return NULL;
-}
-
-std::string UserHost::getOSname()
-{
-    std::cout << "la" << std::endl;
-    return NULL;
-}
-
-std::string UserHost::getProcessorName()
-{
-    std::cout << "la" << std::endl;
-    return NULL;
-}
-
-std::string UserHost::getMemoryDescription()
-{
-    std::cout << "la" << std::endl;
-    return NULL;
-}
-
-std::string UserHost::getGraphics()
-{
-    std::cout << "la" << std::endl;
-    return NULL;
-}
