@@ -28,7 +28,7 @@ const std::string DateTime::_getCurrentDate(void) {
 	tstruct = *localtime(&now);
 	strftime(buf, sizeof(buf), "%Y-%m-%d", &tstruct);
 
-	return buf;
+	return "Date: " + std::string(buf);
 }
 
 const std::string DateTime::_getCurrentTime() {
@@ -38,7 +38,7 @@ const std::string DateTime::_getCurrentTime() {
 	tstruct = *localtime(&now);
 	strftime(buf, sizeof(buf), "%X", &tstruct);
 
-	return buf;
+	return "Time: " + std::string(buf);
 }
 
 /* Getters */

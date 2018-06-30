@@ -2,11 +2,13 @@
 #define I_MONITOR_MODULE_H
 #include <iostream>
 #include <unistd.h>
+#include <sys/sysctl.h>
+#include <time.h>
 
 
 class IMonitorModule
 {
-	public: 
+	public:
 		virtual void update() = 0;
 		
 };
