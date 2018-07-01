@@ -9,6 +9,7 @@ SRCS = main.cpp \
 	   CPU.class.cpp \
 	   RAM.class.cpp \
 	   TerminalMonitor.class.cpp \
+	   Network.class.cpp \
 
 HEADERS = IMonitorDisplay.hpp \
 		  IMonitorModule.hpp \
@@ -18,10 +19,11 @@ HEADERS = IMonitorDisplay.hpp \
 		  CPU.class.hpp \
 		  RAM.class.hpp \
 		  TerminalMonitor.class.hpp \
+		  Network.class.hpp \
 
 OBJ = $(SRCS:.cpp=.o)
 
-CFLAGS = -g -std=c++98 -Wall -Werror -Wextra
+CFLAGS = -std=c++98 -Wall -Werror -Wextra
 
 CC = clang++
 
