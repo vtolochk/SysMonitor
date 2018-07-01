@@ -202,6 +202,7 @@ void TerminalMonitor::_CatModule()
 	static int positionY = 1;
 
 	std::vector<std::string> catLeft;
+	catLeft.clear();
 	catLeft.push_back("     _ _..._ __");
 	catLeft.push_back("    \\)`    (` /");
 	catLeft.push_back("     /      `\\");
@@ -215,6 +216,7 @@ void TerminalMonitor::_CatModule()
 	catLeft.push_back("         ((,,_/      ((,,___/       ");
 
 	std::vector<std::string> catRight;
+	catRight.clear();
 	catRight.push_back("                           __ _..._ _ ");
 	catRight.push_back("                           \\ `)    `(/");
 	catRight.push_back("                           /`       \\");
