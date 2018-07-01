@@ -27,6 +27,8 @@ class TerminalMonitor : public IMonitorDisplay
 		void _userModule();
 		void _OSModule();
 		void _CPUModule();
+
+		void _printCpuBars(WINDOW* win, int y, int x, float usage);
 };
 
 #endif

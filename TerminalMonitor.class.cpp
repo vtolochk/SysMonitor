@@ -88,16 +88,30 @@ void TerminalMonitor::_CPUModule()
 	std::stringstream output;
 	std::copy(avg.begin(), avg.end(), std::ostream_iterator<double>(output, " "));
 	mvwprintw(win, 5, 18, output.str().c_str());
+
+	std::vector<float> usage = this->_cpu.getUsage();
 	
 	int j = 7;
 	for (size_t i = 0; i < 4; i++)
 	{
 		mvwprintw(win, j, 4, "core %i:", i);
+		this->_printCpuBars(win, j, 12, usage[i]);
+		mvwprintw(win, j, 50, "%.1f%%", usage[i]);
 		j += 2;
 	}
 
-
 	wrefresh(win);
+}
+
+void TerminalMonitor::_printCpuBars(WINDOW* win, int y, int x, float usage) {
+	mvwprintw(win, y, x, "[");
+	int numOfBars = usage * 0.35;
+	for (int i = 0; i < numOfBars; i++) {
+		wattron(win, COLOR_PAIR(1));
+		mvwprintw(win, y, x + 1 + i, "|");
+		wattroff(win, COLOR_PAIR(1));
+	}
+	mvwprintw(win, y, x + 36, "]");
 }
 
 
@@ -113,6 +127,8 @@ void TerminalMonitor::displayInfo()
 {
 	initscr();
 	noecho();
+	start_color();
+	init_pair(1, COLOR_GREEN, COLOR_BLACK);
 	curs_set(0);
 	for(;;)
 	{
