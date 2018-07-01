@@ -7,12 +7,13 @@
 #include "OSInfo.class.hpp"
 #include "CPU.class.hpp"
 #include "RAM.class.hpp"
+#include "Network.class.hpp"
 #include <ncurses.h>
 
 class TerminalMonitor : public IMonitorDisplay
 {
 	public:
-		TerminalMonitor(DateTime &dateTime, UserHost &userHost, OSInfo &OSinfo, CPU &cpu, RAM &ram);
+		TerminalMonitor(DateTime &dateTime, UserHost &userHost, OSInfo &OSinfo, CPU &cpu, RAM &ram, Network network);
 		~TerminalMonitor();
 		TerminalMonitor(const TerminalMonitor &other);
 		TerminalMonitor &operator = (const TerminalMonitor &other);
@@ -23,6 +24,7 @@ class TerminalMonitor : public IMonitorDisplay
 		OSInfo	_OSinfo;
 		CPU		_cpu;
 		RAM		_ram;
+		Network _network;
 
 		void _allUpdate();
 		void _allAppear();

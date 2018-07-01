@@ -1,12 +1,13 @@
 #include "TerminalMonitor.class.hpp"
 
-TerminalMonitor::TerminalMonitor(DateTime &dateTime, UserHost &userHost, OSInfo &OSinfo, CPU &cpu, RAM &ram)
+TerminalMonitor::TerminalMonitor(DateTime &dateTime, UserHost &userHost, OSInfo &OSinfo, CPU &cpu, RAM &ram, Network network)
 {
 	this->_dateTime = dateTime;
 	this->_userHost = userHost;
 	this->_OSinfo = OSinfo;
 	this->_cpu = cpu;
 	this->_ram = ram;
+	this->_network = network;
 }
 
 TerminalMonitor::~TerminalMonitor()
@@ -21,6 +22,7 @@ TerminalMonitor::TerminalMonitor(const TerminalMonitor &other)
 	this->_OSinfo = other._OSinfo;
 	this->_cpu = other._cpu;
 	this->_ram = other._ram;
+	this->_network = other._network;
 }
 
 TerminalMonitor &TerminalMonitor::operator = (const TerminalMonitor &other)
@@ -30,6 +32,7 @@ TerminalMonitor &TerminalMonitor::operator = (const TerminalMonitor &other)
 	this->_OSinfo = other._OSinfo;
 	this->_cpu = other._cpu;
 	this->_ram = other._ram;
+	this->_network = other._network;
 	return *this;
 }
 
@@ -40,6 +43,7 @@ void TerminalMonitor::_allUpdate()
 	this->_userHost.update();
 	this->_OSinfo.update();
 	this->_ram.update();
+	this->_network.update();
 }
 
 void TerminalMonitor::_timeModule()
@@ -171,7 +175,7 @@ void TerminalMonitor::_RAMModule()
 
 void TerminalMonitor::_NetworkModule()
 {
-	std::string temp;
+	std::vector<std::string> temp;
 	WINDOW *win = newwin(12, 30, 12, 80);
 	wattron(win, COLOR_PAIR(4));
 	box(win, 0, 0);
@@ -182,13 +186,12 @@ void TerminalMonitor::_NetworkModule()
 	wattron(win, COLOR_PAIR(2));
 	mvwprintw(win, 3, 10, "Packets in");
 	wattroff(win, COLOR_PAIR(2));
-	temp = "kaka";
-	mvwprintw(win, 5, 8, temp.c_str());
+	temp = this->_network.getNetwork();
+	mvwprintw(win, 5, 8, temp[0].c_str());
 	wattron(win, COLOR_PAIR(2));
 	mvwprintw(win, 7, 10, "Packets out");
 	wattroff(win, COLOR_PAIR(2));
-	temp = "kaka";
-	mvwprintw(win, 9, 8, temp.c_str());
+	mvwprintw(win, 9, 8, temp[1].c_str());
 	wrefresh(win);
 }
 

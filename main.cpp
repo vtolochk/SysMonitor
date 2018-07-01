@@ -15,8 +15,9 @@ int main(void)
 	OSInfo OSinfo;
 	CPU cpu;
 	RAM ram;
+	Network network;
 	
-	TerminalMonitor terminal(dateTime, userHost, OSinfo, cpu, ram);
+	TerminalMonitor terminal(dateTime, userHost, OSinfo, cpu, ram, network);
 	terminal.displayInfo();
 	
 
