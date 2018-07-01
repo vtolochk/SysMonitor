@@ -19,7 +19,5 @@ int main(void)
 	
 	TerminalMonitor terminal(dateTime, userHost, OSinfo, cpu, ram, network);
 	terminal.displayInfo();
-	
-
 	return 0;
 }

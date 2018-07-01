@@ -144,11 +144,11 @@ void TerminalMonitor::_CPUModule()
 void TerminalMonitor::_printCpuBars(WINDOW* win, int y, int x, float usage) {
 	mvwprintw(win, y, x, "[");
 	int numOfBars = usage * 0.45;
+	wattron(win, COLOR_PAIR(1));
 	for (int i = 0; i < numOfBars; i++) {
-		wattron(win, COLOR_PAIR(1));
 		mvwprintw(win, y, x + 1 + i, "|");
-		wattroff(win, COLOR_PAIR(1));
 	}
+	wattroff(win, COLOR_PAIR(1));
 	mvwprintw(win, y, x + 36, "]");
 }
 
@@ -195,6 +195,62 @@ void TerminalMonitor::_NetworkModule()
 	wrefresh(win);
 }
 
+void TerminalMonitor::_CatModule()
+{
+	WINDOW *win = newwin(25, 110, 24, 0);
+	static int movement = 0;
+	static int positionY = 1;
+
+	std::vector<std::string> catLeft;
+	catLeft.push_back("     _ _..._ __");
+	catLeft.push_back("    \\)`    (` /");
+	catLeft.push_back("     /      `\\");
+	catLeft.push_back("    |  d  b   |");
+	catLeft.push_back("    =\\  Y    =/--..-=\"````\"-.");
+	catLeft.push_back("      '.=__.-'               `\\");
+	catLeft.push_back("         o/                 /\\ \\");
+	catLeft.push_back("          |                 | \\ \\   / )");
+	catLeft.push_back("           \\    .--\"\"`\\    <   \\ '-' /");
+	catLeft.push_back("          //   |      ||    \\   '---'");
+	catLeft.push_back("         ((,,_/      ((,,___/       ");
+
+	std::vector<std::string> catRight;
+	catRight.push_back("                           __ _..._ _ ");
+	catRight.push_back("                           \\ `)    `(/");
+	catRight.push_back("                           /`       \\");
+	catRight.push_back("                           |   d  b  |");
+	catRight.push_back("             .-\"````\"=-..--\\=    Y  /=");
+	catRight.push_back("           /`               `-.__=.'");
+	catRight.push_back("    _     / /\\                 /o");
+	catRight.push_back("   ( \\   / / |                 |");
+	catRight.push_back("    \\ '-' /   >    /`\"\"--.    /");
+	catRight.push_back("     '---'   /    ||      |   \\\\");
+	catRight.push_back("             \\___,,))      \\_,,))");
+
+	wattron(win, COLOR_PAIR(4));
+	box(win, 0, 0);
+	wattroff(win, COLOR_PAIR(4));
+	wattron(win, COLOR_PAIR(2));
+	if (positionY == 1) {
+		for (int i = 0; i < 11; i++) {
+			mvwprintw(win, positionY + i, 1 + movement, catRight[i].c_str());
+		}
+		movement += 3;
+	} else {
+		for (int i = 0; i < 11; i++) {
+			mvwprintw(win, positionY + i, 1 + movement, catLeft[i].c_str());
+		}
+		movement -= 3;
+	}
+	wattroff(win, COLOR_PAIR(2));
+	wrefresh(win);
+	if (movement == 66) {
+		positionY = 13;
+	} else if (movement == 0) {
+		positionY = 1;
+	}
+}
+
 void TerminalMonitor::_allAppear()
 {
 	this->_timeModule();
@@ -203,6 +259,7 @@ void TerminalMonitor::_allAppear()
 	this->_CPUModule();
 	this->_RAMModule();
 	this->_NetworkModule();
+	this->_CatModule();
 }
 
 void TerminalMonitor::_ColorPairs()
