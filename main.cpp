@@ -4,6 +4,7 @@
 #include "CPU.class.hpp"
 #include "RAM.class.hpp"
 #include "TerminalMonitor.class.hpp"
+#include "Network.class.hpp"
 
 
 #include <sys/mount.h>
