@@ -22,7 +22,7 @@ void RAM::update(void) {
 	sysctlbyname("hw.memsize", &totalMem, &size, NULL, 0);
 	std::stringstream ss;
 	ss << totalMem / 1024 / 1024;
-	this->_totalMem = "Total RAM: " + ss.str() + "M";
+	this->_totalMem = ss.str();
 	ss.str("");
 	ss.clear();
 
@@ -30,12 +30,12 @@ void RAM::update(void) {
 	size_t sizeFreeMem = sizeof(freeMem);
 	sysctlbyname("vm.page_free_count", &freeMem, &sizeFreeMem, NULL, 0);
 	ss << ((totalMem / 1048576) - (freeMem * 4096 / 1048576));
-	this->_usedMem = "Used RAM: " + ss.str() + "M";
+	this->_usedMem = ss.str();
 	ss.str("");
 	ss.clear();
 
 	ss << freeMem * 4096 / 1048576;
-	this->_freeMem = "Free RAM: " + ss.str() + "M";
+	this->_freeMem = ss.str();
 }
 
 /* Getters */

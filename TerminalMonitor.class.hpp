@@ -6,12 +6,13 @@
 #include "DateTime.class.hpp"
 #include "OSInfo.class.hpp"
 #include "CPU.class.hpp"
+#include "RAM.class.hpp"
 #include <ncurses.h>
 
 class TerminalMonitor : public IMonitorDisplay
 {
 	public:
-		TerminalMonitor(DateTime &dateTime, UserHost &userHost, OSInfo &OSinfo, CPU &cpu);
+		TerminalMonitor(DateTime &dateTime, UserHost &userHost, OSInfo &OSinfo, CPU &cpu, RAM &ram);
 		~TerminalMonitor();
 		TerminalMonitor(const TerminalMonitor &other);
 		TerminalMonitor &operator = (const TerminalMonitor &other);
@@ -21,13 +22,16 @@ class TerminalMonitor : public IMonitorDisplay
 		UserHost _userHost;
 		OSInfo	_OSinfo;
 		CPU		_cpu;
+		RAM		_ram;
+
 		void _allUpdate();
 		void _allAppear();
 		void _timeModule();
 		void _userModule();
 		void _OSModule();
 		void _CPUModule();
-
+		void _RAMModule();
+		void _NetworkModule();
 		void _printCpuBars(WINDOW* win, int y, int x, float usage);
 };
 

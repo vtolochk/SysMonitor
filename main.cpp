@@ -11,8 +11,9 @@ int main(void)
 	UserHost userHost;
 	OSInfo OSinfo;
 	CPU cpu;
+	RAM ram;
 	
-	TerminalMonitor terminal(dateTime, userHost, OSinfo, cpu);
+	TerminalMonitor terminal(dateTime, userHost, OSinfo, cpu, ram);
 	terminal.displayInfo();
 	return 0;
 }

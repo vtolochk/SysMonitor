@@ -1,11 +1,12 @@
 #include "TerminalMonitor.class.hpp"
 
-TerminalMonitor::TerminalMonitor(DateTime &dateTime, UserHost &userHost, OSInfo &OSinfo, CPU &cpu)
+TerminalMonitor::TerminalMonitor(DateTime &dateTime, UserHost &userHost, OSInfo &OSinfo, CPU &cpu, RAM &ram)
 {
 	this->_dateTime = dateTime;
 	this->_userHost = userHost;
 	this->_OSinfo = OSinfo;
 	this->_cpu = cpu;
+	this->_ram = ram;
 }
 
 TerminalMonitor::~TerminalMonitor()
@@ -30,6 +31,7 @@ void TerminalMonitor::_allUpdate()
 	this->_dateTime.update();
 	this->_userHost.update();
 	this->_OSinfo.update();
+	this->_ram.update();
 }
 
 void TerminalMonitor::_timeModule()
@@ -79,19 +81,19 @@ void TerminalMonitor::_CPUModule()
 	std::string temp;
 	WINDOW *win = newwin(24, 60, 0, 20);
 	box(win, 0, 0);
-	mvwprintw(win, 1, 25, "Processor");
+	mvwprintw(win, 2, 25, "Processor");
 	temp = this->_cpu.getBrand();
-	mvwprintw(win, 2, 11, temp.c_str());
+	mvwprintw(win, 3, 11, temp.c_str());
 
-	mvwprintw(win, 4, 24, "Average load");
+	mvwprintw(win, 6, 24, "Average load");
 	std::vector<double> avg = this->_cpu.getLoadAVG();
 	std::stringstream output;
-	std::copy(avg.begin(), avg.end(), std::ostream_iterator<double>(output, " "));
-	mvwprintw(win, 5, 18, output.str().c_str());
+	std::copy(avg.begin(), avg.end(), std::ostream_iterator<double>(output, "  "));
+	mvwprintw(win, 7, 18, output.str().c_str());
 
 	std::vector<float> usage = this->_cpu.getUsage();
 	
-	int j = 7;
+	int j = 11;
 	for (size_t i = 0; i < 4; i++)
 	{
 		mvwprintw(win, j, 4, "core %i:", i);
@@ -105,7 +107,7 @@ void TerminalMonitor::_CPUModule()
 
 void TerminalMonitor::_printCpuBars(WINDOW* win, int y, int x, float usage) {
 	mvwprintw(win, y, x, "[");
-	int numOfBars = usage * 0.35;
+	int numOfBars = usage * 0.45;
 	for (int i = 0; i < numOfBars; i++) {
 		wattron(win, COLOR_PAIR(1));
 		mvwprintw(win, y, x + 1 + i, "|");
@@ -114,6 +116,37 @@ void TerminalMonitor::_printCpuBars(WINDOW* win, int y, int x, float usage) {
 	mvwprintw(win, y, x + 36, "]");
 }
 
+void TerminalMonitor::_RAMModule()
+{
+	std::string temp;
+	WINDOW *win = newwin(12, 30, 0, 80);
+	box(win, 0, 0);
+	mvwprintw(win, 1, 8, "Total memory");
+	temp = this->_ram.getTotalMem();
+	mvwprintw(win, 2, 11, temp.c_str());
+	mvwprintw(win, 4, 8, "Used memory");
+	temp = this->_ram.getUsedMem();
+	mvwprintw(win, 5, 7, temp.c_str());
+	mvwprintw(win, 7, 8, "Free memory");
+	temp = this->_ram.getFreeMem();
+	mvwprintw(win, 8, 7, temp.c_str());
+	wrefresh(win);
+}
+
+void TerminalMonitor::_NetworkModule()
+{
+	std::string temp;
+	WINDOW *win = newwin(12, 30, 12, 80);
+	box(win, 0, 0);
+	mvwprintw(win, 1, 11, "Networks");
+	mvwprintw(win, 3, 10, "Packets in");
+	temp = "kaka";
+	mvwprintw(win, 5, 8, temp.c_str());
+	mvwprintw(win, 7, 10, "Packets out");
+	temp = "kaka";
+	mvwprintw(win, 9, 8, temp.c_str());
+	wrefresh(win);
+}
 
 void TerminalMonitor::_allAppear()
 {
@@ -121,6 +154,8 @@ void TerminalMonitor::_allAppear()
 	this->_userModule();
 	this->_OSModule();
 	this->_CPUModule();
+	this->_RAMModule();
+	this->_NetworkModule();
 }
 
 void TerminalMonitor::displayInfo()
@@ -138,7 +173,6 @@ void TerminalMonitor::displayInfo()
 		this->_allAppear();
 		if (getch() == 'q')
 		{	
-			nodelay(stdscr, false);
 			endwin();
 			exit(0);
 		}
