@@ -22,21 +22,24 @@ void Network::update(void) {
 }
 
 void Network::_parseNetworkFromTop(void) {
-	FILE* pipe;
+	FILE* pipe1;
+	FILE* pipe2;
 	char buff[64];
 	std::string tmp;
 
-	pipe = popen("top -l 1 | grep Network | sed 's/\\.//g' | cut -d' ' -f 3", "r");
-	fgets(buff, 64, pipe);
+	pipe1 = popen("top -l 1 | grep Network | sed 's/\\.//g' | cut -d' ' -f 3", "r");
+	fgets(buff, 64, pipe1);
 	tmp = std::string(buff);
 	tmp.erase(tmp.end() - 1, tmp.end());
 	this->_network.push_back(tmp);
 
-	pipe = popen("top -l 1 | grep Network | sed 's/\\.//g' | cut -d' ' -f 5", "r");
-	fgets(buff, 64, pipe);
+	pipe2 = popen("top -l 1 | grep Network | sed 's/\\.//g' | cut -d' ' -f 5", "r");
+	fgets(buff, 64, pipe2);
 	tmp = std::string(buff);
 	tmp.erase(tmp.end() - 1, tmp.end());
 	this->_network.push_back(tmp);
+	pclose(pipe1);
+	pclose(pipe2);
 }
 
 /* Getters */

@@ -34,6 +34,7 @@ class TerminalMonitor : public IMonitorDisplay
 		void _CPUModule();
 		void _RAMModule();
 		void _NetworkModule();
+		void _CatModule();
 		void _printCpuBars(WINDOW* win, int y, int x, float usage);
 		void _ColorPairs();
 };
