@@ -34,7 +34,7 @@ void RAM::update(void) {
 	ss.str("");
 	ss.clear();
 
-	ss << freeMem * 4096 / 1048576;
+	ss << freeMem * 4096 / 1048576 / 1048576;
 	this->_freeMem = ss.str();
 }
 
