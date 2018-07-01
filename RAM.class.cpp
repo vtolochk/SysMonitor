@@ -17,37 +17,39 @@ RAM& RAM::operator=(const RAM&) {
 }
 
 void RAM::update(void) {
-	unsigned long totalMem;
+	this->_calcTotalMem();
+	this->_calcFreeMem();
+	this->_calcUsedMem();
+}
+
+void RAM::_calcTotalMem(void) {
+	unsigned long long totalMem;
 	size_t size = sizeof(totalMem);
 	sysctlbyname("hw.memsize", &totalMem, &size, NULL, 0);
-	std::stringstream ss;
-	ss << totalMem / 1024 / 1024;
-	this->_totalMem = ss.str();
-	ss.str("");
-	ss.clear();
+	this->_totalMem = totalMem / 1024 / 1024;
+}
 
-	unsigned long freeMem;
+void RAM::_calcUsedMem(void) {
+	this->_usedMem = this->_totalMem - this->_freeMem;
+}
+
+void RAM::_calcFreeMem(void) {
+	int freeMem;
 	size_t sizeFreeMem = sizeof(freeMem);
 	sysctlbyname("vm.page_free_count", &freeMem, &sizeFreeMem, NULL, 0);
-	ss << ((totalMem / 1048576) - (freeMem * 4096 / 1048576));
-	this->_usedMem = ss.str();
-	ss.str("");
-	ss.clear();
-
-	ss << freeMem * 4096 / 1048576;
-	this->_freeMem = ss.str();
+	this->_freeMem = freeMem * 4096 / 1024 / 1024;
 }
 
 /* Getters */
 
-std::string RAM::getTotalMem(void) const {
+unsigned long long RAM::getTotalMem(void) const {
 	return this->_totalMem;
 }
 
-std::string RAM::getUsedMem(void) const {
+unsigned long long RAM::getUsedMem(void) const {
 	return this->_usedMem;
 }
 
-std::string RAM::getFreeMem(void) const {
+unsigned long long RAM::getFreeMem(void) const {
 	return this->_freeMem;
 }

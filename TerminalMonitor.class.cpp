@@ -118,18 +118,14 @@ void TerminalMonitor::_printCpuBars(WINDOW* win, int y, int x, float usage) {
 
 void TerminalMonitor::_RAMModule()
 {
-	std::string temp;
 	WINDOW *win = newwin(12, 30, 0, 80);
 	box(win, 0, 0);
 	mvwprintw(win, 1, 8, "Total memory");
-	temp = this->_ram.getTotalMem();
-	mvwprintw(win, 2, 11, temp.c_str());
+	mvwprintw(win, 2, 11, "%llu", this->_ram.getTotalMem());
 	mvwprintw(win, 4, 8, "Used memory");
-	temp = this->_ram.getUsedMem();
-	mvwprintw(win, 5, 7, temp.c_str());
+	mvwprintw(win, 5, 7, "%llu", this->_ram.getUsedMem());
 	mvwprintw(win, 7, 8, "Free memory");
-	temp = this->_ram.getFreeMem();
-	mvwprintw(win, 8, 7, temp.c_str());
+	mvwprintw(win, 8, 7, "%llu", this->_ram.getFreeMem());
 	wrefresh(win);
 }
 

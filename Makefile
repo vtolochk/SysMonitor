@@ -21,7 +21,7 @@ HEADERS = IMonitorDisplay.hpp \
 
 OBJ = $(SRCS:.cpp=.o)
 
-CFLAGS = -std=c++98 -Wall -Werror -Wextra
+CFLAGS = -g -std=c++98 -Wall -Werror -Wextra
 
 CC = clang++
 
