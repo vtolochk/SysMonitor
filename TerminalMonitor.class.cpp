@@ -16,12 +16,20 @@ TerminalMonitor::~TerminalMonitor()
 
 TerminalMonitor::TerminalMonitor(const TerminalMonitor &other)
 {
-	static_cast<void>(other);
+	this->_dateTime = other._dateTime;
+	this->_userHost = other._userHost;
+	this->_OSinfo = other._OSinfo;
+	this->_cpu = other._cpu;
+	this->_ram = other._ram;
 }
 
 TerminalMonitor &TerminalMonitor::operator = (const TerminalMonitor &other)
 {
-	static_cast<void>(other);
+	this->_dateTime = other._dateTime;
+	this->_userHost = other._userHost;
+	this->_OSinfo = other._OSinfo;
+	this->_cpu = other._cpu;
+	this->_ram = other._ram;
 	return *this;
 }
 
@@ -142,7 +150,6 @@ void TerminalMonitor::_printCpuBars(WINDOW* win, int y, int x, float usage) {
 
 void TerminalMonitor::_RAMModule()
 {
-	std::string temp;
 	WINDOW *win = newwin(12, 30, 0, 80);
 	wattron(win, COLOR_PAIR(4));
 	box(win, 0, 0);
@@ -150,18 +157,15 @@ void TerminalMonitor::_RAMModule()
 	wattron(win, COLOR_PAIR(2));
 	mvwprintw(win, 1, 8, "Total memory");
 	wattroff(win, COLOR_PAIR(2));
-	temp = this->_ram.getTotalMem();
-	mvwprintw(win, 2, 11, "%s MB", temp.c_str());
+	mvwprintw(win, 2, 11, "%llu MB", this->_ram.getTotalMem());
 	wattron(win, COLOR_PAIR(2));
-	mvwprintw(win, 4, 8, "Used memory");
+	mvwprintw(win, 4, 9, "Used memory");
 	wattroff(win, COLOR_PAIR(2));
-	temp = this->_ram.getUsedMem();
-	mvwprintw(win, 5, 7, temp.c_str());
+	mvwprintw(win, 5, 11, "%llu MB", this->_ram.getUsedMem());
 	wattron(win, COLOR_PAIR(2));
-	mvwprintw(win, 7, 8, "Free memory");
+	mvwprintw(win, 7, 9, "Free memory");
 	wattroff(win, COLOR_PAIR(2));
-	temp = this->_ram.getFreeMem();
-	mvwprintw(win, 8, 7, temp.c_str());
+	mvwprintw(win, 8, 11, "%llu MB", this->_ram.getFreeMem());
 	wrefresh(win);
 }
 

@@ -5,6 +5,8 @@
 #include "RAM.class.hpp"
 #include "TerminalMonitor.class.hpp"
 
+
+#include <sys/mount.h>
 int main(void)
 {
 	DateTime dateTime;
@@ -15,5 +17,7 @@ int main(void)
 	
 	TerminalMonitor terminal(dateTime, userHost, OSinfo, cpu, ram);
 	terminal.displayInfo();
+	
+
 	return 0;
 }
