@@ -11,14 +11,18 @@ class RAM: public IMonitorModule {
 
 		void update(void);
 
-		std::string getTotalMem(void) const;
-		std::string getUsedMem(void) const;
-		std::string getFreeMem(void) const;
+		unsigned long long getTotalMem(void) const;
+		unsigned long long getUsedMem(void) const;
+		unsigned long long getFreeMem(void) const;
 
 	private:
-		std::string _totalMem;
-		std::string _usedMem;
-		std::string _freeMem;
+		unsigned long long _totalMem;
+		unsigned long long _usedMem;
+		unsigned long long _freeMem;
+
+		void _calcTotalMem(void);
+		void _calcUsedMem(void);
+		void _calcFreeMem(void);
 };
 
 #endif
